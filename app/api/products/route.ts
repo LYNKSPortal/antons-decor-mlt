@@ -4,6 +4,9 @@ import { db } from '@/lib/db';
 import { products, categories } from '@/lib/schema';
 import { eq } from 'drizzle-orm';
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);

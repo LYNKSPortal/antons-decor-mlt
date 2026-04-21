@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { categories } from '@/lib/schema';
 
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export async function GET() {
   try {
     const allCategories = await db.select().from(categories);

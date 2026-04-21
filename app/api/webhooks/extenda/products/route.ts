@@ -1,7 +1,10 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { products, categories } from '@/lib/schema';
+import { products } from '@/lib/schema';
 import { eq } from 'drizzle-orm';
+
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 // Webhook to receive product data from Extenda
 export async function POST(request: Request) {
