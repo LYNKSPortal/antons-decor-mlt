@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
@@ -29,15 +30,25 @@ const priceRanges = [
 ];
 
 export default function ShopPage() {
+  const searchParams = useSearchParams();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [dataSource, setDataSource] = useState<'arture' | 'local' | null>(null);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedPriceRange, setSelectedPriceRange] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
+  const [inStockOnly, setInStockOnly] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [sortBy, setSortBy] = useState('featured');
+
+  // Initialize category from URL parameter
+  useEffect(() => {
+    const categoryParam = searchParams.get('category');
+    if (categoryParam && categories.includes(categoryParam)) {
+      setSelectedCategory(categoryParam);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     fetchProducts();
@@ -70,6 +81,12 @@ export default function ShopPage() {
   const sortedProducts = React.useMemo(() => {
     let sorted = [...products];
     
+    // Apply in-stock filter
+    if (inStockOnly) {
+      sorted = sorted.filter(p => p.inStock);
+    }
+    
+    // Apply sorting
     if (sortBy === 'price-low') {
       sorted.sort((a, b) => parseFloat(a.price.toString()) - parseFloat(b.price.toString()));
     } else if (sortBy === 'price-high') {
@@ -79,7 +96,7 @@ export default function ShopPage() {
     }
     
     return sorted;
-  }, [products, sortBy]);
+  }, [products, sortBy, inStockOnly]);
 
   return (
     <div>
@@ -176,6 +193,7 @@ export default function ShopPage() {
                       setSelectedCategory('All');
                       setSelectedPriceRange(0);
                       setSearchQuery('');
+                      setInStockOnly(false);
                     }}
                     className="text-sm text-[#C59D5A] hover:text-[#194D59] transition-colors"
                   >
@@ -235,6 +253,8 @@ export default function ShopPage() {
                     <label className="flex items-center cursor-pointer group">
                       <input
                         type="checkbox"
+                        checked={inStockOnly}
+                        onChange={(e) => setInStockOnly(e.target.checked)}
                         className="mr-3 text-[#194D59] focus:ring-[#194D59] w-4 h-4 rounded"
                       />
                       <span className="text-gray-700 group-hover:text-[#194D59] transition-colors">
