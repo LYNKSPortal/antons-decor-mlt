@@ -217,7 +217,7 @@ export default function ShopPage() {
           <div className="flex flex-col lg:flex-row gap-6">
             {/* Left Sidebar - Filters */}
             <aside className={`lg:block ${showFilters ? 'block' : 'hidden'} lg:w-64 flex-shrink-0`}>
-              <div className="bg-white rounded-lg shadow-sm p-6 sticky top-4">
+              <div className="bg-white rounded-lg shadow-sm p-6">
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-xl font-bold text-[#143942]">Filters</h2>
                   <button
