@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { SectionHeader } from '@/components/ui/SectionHeader';
@@ -125,6 +126,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
             {categories.map((category, index) => {
               const Icon = category.icon;
+              const categorySlug = category.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
               return (
                 <motion.div
                   key={category.name}
@@ -133,14 +135,16 @@ export default function Home() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.02 }}
                 >
-                  <Card className="p-6 text-center h-full flex flex-col items-center justify-center min-h-[120px] cursor-pointer group">
-                    <div className="w-12 h-12 bg-[#194D59]/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-[#C59D5A]/20 transition-colors">
-                      <Icon className="w-6 h-6 text-[#194D59] group-hover:text-[#C59D5A] transition-colors" />
-                    </div>
-                    <h3 className="text-sm font-medium text-[#143942] group-hover:text-[#C59D5A] transition-colors">
-                      {category.name}
-                    </h3>
-                  </Card>
+                  <Link href={`/shop?category=${encodeURIComponent(category.name)}`}>
+                    <Card className="p-6 text-center h-full flex flex-col items-center justify-center min-h-[120px] cursor-pointer group hover:shadow-lg transition-shadow">
+                      <div className="w-12 h-12 bg-[#194D59]/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-[#C59D5A]/20 transition-colors">
+                        <Icon className="w-6 h-6 text-[#194D59] group-hover:text-[#C59D5A] transition-colors" />
+                      </div>
+                      <h3 className="text-sm font-medium text-[#143942] group-hover:text-[#C59D5A] transition-colors">
+                        {category.name}
+                      </h3>
+                    </Card>
+                  </Link>
                 </motion.div>
               );
             })}

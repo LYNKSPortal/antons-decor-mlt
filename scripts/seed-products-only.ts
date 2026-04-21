@@ -2,33 +2,28 @@ import * as dotenv from 'dotenv';
 import { neon } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-http';
 import { categories, products } from '../lib/schema';
+import { eq } from 'drizzle-orm';
 
 dotenv.config({ path: '.env.local' });
 
 const sql = neon(process.env.DATABASE_URL!);
 const db = drizzle(sql);
 
-async function seed() {
-  console.log('🌱 Seeding database...');
+async function seedProducts() {
+  console.log('🌱 Seeding products only...');
 
-  const categoryData = [
-    { name: 'Furniture', slug: 'furniture', description: 'Elegant sofas, chairs, tables, and sideboards' },
-    { name: 'Lighting', slug: 'lighting', description: 'Designer lamps and statement lighting pieces' },
-    { name: 'Decorative', slug: 'decorative', description: 'Curated ornaments and accessories' },
-    { name: 'Floral', slug: 'floral', description: 'Fresh and artificial botanicals' },
-    { name: 'Textiles', slug: 'textiles', description: 'Luxurious fabrics and soft furnishings' },
-    { name: 'Ambiance', slug: 'ambiance', description: 'Scents, candles, and accessories' },
-    { name: 'Glassware', slug: 'glassware', description: 'Elegant glass pieces for display' },
-  ];
-
-  console.log('📦 Inserting categories...');
-  const insertedCategories = await db.insert(categories).values(categoryData).returning();
-  console.log(`✅ Inserted ${insertedCategories.length} categories`);
+  // Get existing categories
+  const existingCategories = await db.select().from(categories);
+  console.log(`📦 Found ${existingCategories.length} existing categories`);
 
   const categoryMap: Record<string, number> = {};
-  insertedCategories.forEach(cat => {
+  existingCategories.forEach(cat => {
     categoryMap[cat.slug] = cat.id;
   });
+
+  // Delete existing products first
+  console.log('🗑️ Clearing existing products...');
+  await db.delete(products);
 
   const productData = [
     // Furniture
@@ -98,10 +93,10 @@ async function seed() {
   const insertedProducts = await db.insert(products).values(productData).returning();
   console.log(`✅ Inserted ${insertedProducts.length} products`);
 
-  console.log('🎉 Database seeded successfully!');
+  console.log('🎉 Products seeded successfully!');
 }
 
-seed().catch((error) => {
-  console.error('❌ Error seeding database:', error);
+seedProducts().catch((error) => {
+  console.error('❌ Error seeding products:', error);
   process.exit(1);
 });
