@@ -5,14 +5,45 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { SectionHeader } from '@/components/ui/SectionHeader';
-import { ArrowRight, Star } from 'lucide-react';
+import { 
+  ArrowRight, Star, Armchair, Flower2, Leaf, Flame, Sparkles, 
+  Grid3x3, Clock, Table, Layers, Square, UtensilsCrossed, 
+  Lamp, Frame, Sofa, Gift, Wine, Lightbulb, ScanFace, 
+  Gem, Image, Trees, FlowerIcon, Ribbon, Wrench, Box, 
+  CandlestickChart, LampDesk, RectangleHorizontal, Vegan
+} from 'lucide-react';
 
 const categories = [
-  'Armchairs, Chairs & Stools', 'Artificial Flowers', 'Artificial Plants', 'Candle Holders',
-  'Candles & Home Scent', 'Carpets', 'Clocks', 'Side Tables', 'Console Tables', 'Cushions',
-  'Dining Tables', 'Floor Lamps', 'Frames', 'Furniture', 'Gift Vouchers', 'Glass',
-  'Lanterns', 'Lighting', 'Mirrors', 'Ornaments', 'Pictures', 'Plant Ornaments',
-  'Pots', 'Ribbons', 'Services', 'Sideboards', 'Table Holders', 'Table Lamps', 'Trays', 'Vases'
+  { name: 'Armchairs, Chairs & Stools', icon: Armchair },
+  { name: 'Artificial Flowers', icon: Flower2 },
+  { name: 'Artificial Plants', icon: Leaf },
+  { name: 'Candle Holders', icon: Flame },
+  { name: 'Candles & Home Scent', icon: Sparkles },
+  { name: 'Carpets', icon: Grid3x3 },
+  { name: 'Clocks', icon: Clock },
+  { name: 'Side Tables', icon: Table },
+  { name: 'Console Tables', icon: Layers },
+  { name: 'Cushions', icon: Square },
+  { name: 'Dining Tables', icon: UtensilsCrossed },
+  { name: 'Floor Lamps', icon: Lamp },
+  { name: 'Frames', icon: Frame },
+  { name: 'Furniture', icon: Sofa },
+  { name: 'Gift Vouchers', icon: Gift },
+  { name: 'Glass', icon: Wine },
+  { name: 'Lanterns', icon: Lightbulb },
+  { name: 'Lighting', icon: Lightbulb },
+  { name: 'Mirrors', icon: ScanFace },
+  { name: 'Ornaments', icon: Gem },
+  { name: 'Pictures', icon: Image },
+  { name: 'Plant Ornaments', icon: Trees },
+  { name: 'Pots', icon: FlowerIcon },
+  { name: 'Ribbons', icon: Ribbon },
+  { name: 'Services', icon: Wrench },
+  { name: 'Sideboards', icon: Box },
+  { name: 'Table Holders', icon: CandlestickChart },
+  { name: 'Table Lamps', icon: LampDesk },
+  { name: 'Trays', icon: RectangleHorizontal },
+  { name: 'Vases', icon: Vegan }
 ];
 
 const testimonials = [
@@ -92,24 +123,27 @@ export default function Home() {
           />
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
-            {categories.map((category, index) => (
-              <motion.div
-                key={category}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.02 }}
-              >
-                <Card className="p-6 text-center h-full flex flex-col items-center justify-center min-h-[120px] cursor-pointer group">
-                  <div className="w-12 h-12 bg-[#194D59]/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-[#C59D5A]/20 transition-colors">
-                    <div className="w-6 h-6 bg-[#194D59] group-hover:bg-[#C59D5A] rounded transition-colors"></div>
-                  </div>
-                  <h3 className="text-sm font-medium text-[#143942] group-hover:text-[#C59D5A] transition-colors">
-                    {category}
-                  </h3>
-                </Card>
-              </motion.div>
-            ))}
+            {categories.map((category, index) => {
+              const Icon = category.icon;
+              return (
+                <motion.div
+                  key={category.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.02 }}
+                >
+                  <Card className="p-6 text-center h-full flex flex-col items-center justify-center min-h-[120px] cursor-pointer group">
+                    <div className="w-12 h-12 bg-[#194D59]/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-[#C59D5A]/20 transition-colors">
+                      <Icon className="w-6 h-6 text-[#194D59] group-hover:text-[#C59D5A] transition-colors" />
+                    </div>
+                    <h3 className="text-sm font-medium text-[#143942] group-hover:text-[#C59D5A] transition-colors">
+                      {category.name}
+                    </h3>
+                  </Card>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
