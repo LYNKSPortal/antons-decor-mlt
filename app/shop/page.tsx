@@ -20,7 +20,39 @@ interface Product {
   description: string;
 }
 
-const categories = ['All', 'Furniture', 'Lighting', 'Decorative', 'Floral', 'Textiles', 'Ambiance', 'Glassware'];
+const categories = [
+  'All',
+  'Armchairs, Chairs & Stools',
+  'Artificial Flowers',
+  'Artificial Plants',
+  'Candle Holders',
+  'Candles & Home Scent',
+  'Carpets',
+  'Clocks',
+  'Console Tables',
+  'Cushions',
+  'Dining Tables',
+  'Floor Lamps',
+  'Frames',
+  'Furniture',
+  'Gift Vouchers',
+  'Glass',
+  'Lanterns',
+  'Lighting',
+  'Mirrors',
+  'Ornaments',
+  'Pictures',
+  'Plant Ornaments',
+  'Pots',
+  'Ribbons',
+  'Services',
+  'Side Tables',
+  'Sideboards',
+  'Table Holders',
+  'Table Lamps',
+  'Trays',
+  'Vases'
+];
 const priceRanges = [
   { label: 'All Prices', min: 0, max: Infinity },
   { label: 'Under €100', min: 0, max: 100 },
@@ -207,7 +239,7 @@ export default function ShopPage() {
                     <Filter className="w-4 h-4 mr-2" />
                     Category
                   </h3>
-                  <div className="space-y-2">
+                  <div className="space-y-2 max-h-96 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
                     {categories.map((cat) => (
                       <label key={cat} className="flex items-center cursor-pointer group">
                         <input
@@ -217,7 +249,7 @@ export default function ShopPage() {
                           onChange={() => setSelectedCategory(cat)}
                           className="mr-3 text-[#194D59] focus:ring-[#194D59] w-4 h-4"
                         />
-                        <span className="text-gray-700 group-hover:text-[#194D59] transition-colors">
+                        <span className="text-sm text-gray-700 group-hover:text-[#194D59] transition-colors">
                           {cat}
                         </span>
                       </label>
