@@ -15,36 +15,36 @@ import {
 } from 'lucide-react';
 
 const categories = [
-  { name: 'Armchairs, Chairs & Stools', icon: Armchair },
-  { name: 'Artificial Flowers', icon: Flower2 },
-  { name: 'Artificial Plants', icon: Leaf },
-  { name: 'Candle Holders', icon: Flame },
-  { name: 'Candles & Home Scent', icon: Sparkles },
-  { name: 'Carpets', icon: Grid3x3 },
-  { name: 'Clocks', icon: Clock },
-  { name: 'Side Tables', icon: Table },
-  { name: 'Console Tables', icon: Layers },
-  { name: 'Cushions', icon: Square },
-  { name: 'Dining Tables', icon: UtensilsCrossed },
-  { name: 'Floor Lamps', icon: Lamp },
-  { name: 'Frames', icon: Frame },
-  { name: 'Furniture', icon: Sofa },
-  { name: 'Gift Vouchers', icon: Gift },
-  { name: 'Glass', icon: Wine },
-  { name: 'Lanterns', icon: Lightbulb },
-  { name: 'Lighting', icon: Lightbulb },
-  { name: 'Mirrors', icon: ScanFace },
-  { name: 'Ornaments', icon: Gem },
-  { name: 'Pictures', icon: Image },
-  { name: 'Plant Ornaments', icon: Trees },
-  { name: 'Pots', icon: FlowerIcon },
-  { name: 'Ribbons', icon: Ribbon },
-  { name: 'Services', icon: Wrench },
-  { name: 'Sideboards', icon: Box },
-  { name: 'Table Holders', icon: CandlestickChart },
-  { name: 'Table Lamps', icon: LampDesk },
-  { name: 'Trays', icon: RectangleHorizontal },
-  { name: 'Vases', icon: Vegan }
+  { name: 'Armchairs, Chairs & Stools', icon: Armchair, dbCategory: 'Furniture' },
+  { name: 'Artificial Flowers', icon: Flower2, dbCategory: 'Floral' },
+  { name: 'Artificial Plants', icon: Leaf, dbCategory: 'Floral' },
+  { name: 'Candle Holders', icon: Flame, dbCategory: 'Ambiance' },
+  { name: 'Candles & Home Scent', icon: Sparkles, dbCategory: 'Ambiance' },
+  { name: 'Carpets', icon: Grid3x3, dbCategory: 'Textiles' },
+  { name: 'Clocks', icon: Clock, dbCategory: 'Decorative' },
+  { name: 'Side Tables', icon: Table, dbCategory: 'Furniture' },
+  { name: 'Console Tables', icon: Layers, dbCategory: 'Furniture' },
+  { name: 'Cushions', icon: Square, dbCategory: 'Textiles' },
+  { name: 'Dining Tables', icon: UtensilsCrossed, dbCategory: 'Furniture' },
+  { name: 'Floor Lamps', icon: Lamp, dbCategory: 'Lighting' },
+  { name: 'Frames', icon: Frame, dbCategory: 'Decorative' },
+  { name: 'Furniture', icon: Sofa, dbCategory: 'Furniture' },
+  { name: 'Gift Vouchers', icon: Gift, dbCategory: 'Glassware' },
+  { name: 'Glass', icon: Wine, dbCategory: 'Glassware' },
+  { name: 'Lanterns', icon: Lightbulb, dbCategory: 'Lighting' },
+  { name: 'Lighting', icon: Lightbulb, dbCategory: 'Lighting' },
+  { name: 'Mirrors', icon: ScanFace, dbCategory: 'Decorative' },
+  { name: 'Ornaments', icon: Gem, dbCategory: 'Decorative' },
+  { name: 'Pictures', icon: Image, dbCategory: 'Decorative' },
+  { name: 'Plant Ornaments', icon: Trees, dbCategory: 'Floral' },
+  { name: 'Pots', icon: FlowerIcon, dbCategory: 'Floral' },
+  { name: 'Ribbons', icon: Ribbon, dbCategory: 'Decorative' },
+  { name: 'Services', icon: Wrench, dbCategory: 'Decorative' },
+  { name: 'Sideboards', icon: Box, dbCategory: 'Furniture' },
+  { name: 'Table Holders', icon: CandlestickChart, dbCategory: 'Glassware' },
+  { name: 'Table Lamps', icon: LampDesk, dbCategory: 'Lighting' },
+  { name: 'Trays', icon: RectangleHorizontal, dbCategory: 'Decorative' },
+  { name: 'Vases', icon: Vegan, dbCategory: 'Decorative' }
 ];
 
 const testimonials = [
@@ -126,7 +126,6 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
             {categories.map((category, index) => {
               const Icon = category.icon;
-              const categorySlug = category.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
               return (
                 <motion.div
                   key={category.name}
@@ -135,7 +134,7 @@ export default function Home() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.02 }}
                 >
-                  <Link href={`/shop?category=${encodeURIComponent(category.name)}`}>
+                  <Link href={`/shop?category=${encodeURIComponent(category.dbCategory)}`}>
                     <Card className="p-6 text-center h-full flex flex-col items-center justify-center min-h-[120px] cursor-pointer group hover:shadow-lg transition-shadow">
                       <div className="w-12 h-12 bg-[#194D59]/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-[#C59D5A]/20 transition-colors">
                         <Icon className="w-6 h-6 text-[#194D59] group-hover:text-[#C59D5A] transition-colors" />
