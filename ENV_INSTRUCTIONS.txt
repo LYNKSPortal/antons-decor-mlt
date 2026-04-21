@@ -1,0 +1,18 @@
+IMPORTANT: Create a .env.local file in the project root
+
+1. Create the file:
+   In the project root directory (/Users/user/CascadeProjects/Antons Decor/antons-decor/), 
+   create a new file named: .env.local
+
+2. Add this exact content to the file:
+
+DATABASE_URL=postgresql://neondb_owner:npg_71QJCPpiaXNy@ep-patient-grass-abl4ltl7-pooler.eu-west-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+
+3. Save the file
+
+4. Then run these commands in order:
+   npm run db:push
+   npm run db:seed
+   npm run dev
+
+The .env.local file is gitignored and will not be committed to version control.
