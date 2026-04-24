@@ -72,32 +72,38 @@ export const Header: React.FC = () => {
               ))}
             </nav>
 
-            <div className="flex items-center space-x-4">
-              <Link href="/contact" className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-                <Mail className="w-5 h-5 text-[#194D59]" />
-              </Link>
-              <Link href="/account" className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-                <User className="w-5 h-5 text-[#194D59]" />
-              </Link>
-              <Link href="/basket" className="p-2 hover:bg-gray-100 rounded-full transition-colors relative">
-                <ShoppingBag className="w-5 h-5 text-[#194D59]" />
-                {cartCount > 0 && (
-                  <span className="absolute top-0 right-0 bg-[#C59D5A] text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
-                    {cartCount}
-                  </span>
-                )}
-              </Link>
-
-              <button
-                className="lg:hidden p-2"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              >
-                {isMobileMenuOpen ? (
-                  <X className="w-6 h-6 text-[#194D59]" />
-                ) : (
-                  <Menu className="w-6 h-6 text-[#194D59]" />
-                )}
-              </button>
+            <div className="flex lg:flex-row flex-col lg:items-center items-center gap-3 lg:gap-4">
+              <div className="flex items-center justify-center gap-6 lg:gap-4 w-full lg:w-auto">
+                <Link href="/contact" className="hidden lg:block p-2 hover:bg-gray-100 rounded-full transition-colors">
+                  <Mail className="w-5 h-5 text-[#194D59]" />
+                </Link>
+                <Link href="/account" className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                  <User className="w-6 h-6 text-[#194D59]" />
+                </Link>
+                <Link href="/basket" className="p-2 hover:bg-gray-100 rounded-full transition-colors relative">
+                  <ShoppingBag className="w-6 h-6 text-[#194D59]" />
+                  {cartCount > 0 && (
+                    <span className="absolute top-0 right-0 bg-[#C59D5A] text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                      {cartCount}
+                    </span>
+                  )}
+                </Link>
+              </div>
+              <div className="flex items-center justify-center w-full lg:w-auto">
+                <button
+                  className="lg:hidden flex items-center justify-center gap-2 px-6 py-2.5 border-2 border-[#194D59] rounded-md hover:bg-[#194D59] hover:text-white transition-colors w-full max-w-[200px]"
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                >
+                  {isMobileMenuOpen ? (
+                    <X className="w-5 h-5 text-[#194D59]" />
+                  ) : (
+                    <>
+                      <Menu className="w-5 h-5 text-[#194D59]" />
+                      <span className="text-[#194D59] font-medium text-sm">MENU</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -105,17 +111,33 @@ export const Header: React.FC = () => {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden border-t border-gray-200 bg-white"
+              initial={{ opacity: 0, x: '100%' }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: '100%' }}
+              transition={{ duration: 0.3 }}
+              className="lg:hidden fixed inset-0 z-50 bg-gradient-to-br from-[#194D59] to-[#143942]"
             >
-              <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
+              <div className="flex flex-col items-center justify-center px-4 py-6 border-b border-white/20">
+                <Link href="/" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
+                  <img 
+                    src="/AD-Light-Version.png" 
+                    alt="Anton's Décor" 
+                    className="w-[200px] h-auto"
+                  />
+                </Link>
+              </div>
+              <button
+                className="absolute top-6 right-4 p-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <X className="w-6 h-6 text-white" />
+              </button>
+              <nav className="flex flex-col px-4 py-8 space-y-6">
                 {navLinks.map((link) => (
                   <Link
                     key={link.href + link.label}
                     href={link.href}
-                    className="text-[#143942] hover:text-[#C59D5A] transition-colors duration-300 font-medium py-2"
+                    className="text-white hover:text-[#C59D5A] transition-colors duration-300 font-medium text-xl py-3"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.label}

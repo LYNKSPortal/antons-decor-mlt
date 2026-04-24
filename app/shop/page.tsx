@@ -272,7 +272,11 @@ function ShopPageContent() {
                           type="radio"
                           name="category"
                           checked={selectedCategory === cat}
-                          onChange={() => setSelectedCategory(cat)}
+                          onChange={() => {
+                            setSelectedCategory(cat);
+                            setShowFilters(false);
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                          }}
                           className="mr-3 text-[#194D59] focus:ring-[#194D59] w-4 h-4"
                         />
                         <span className="text-sm text-gray-700 group-hover:text-[#194D59] transition-colors">
@@ -293,7 +297,10 @@ function ShopPageContent() {
                           type="radio"
                           name="price"
                           checked={selectedPriceRange === idx}
-                          onChange={() => setSelectedPriceRange(idx)}
+                          onChange={() => {
+                            setSelectedPriceRange(idx);
+                            setShowFilters(false);
+                          }}
                           className="mr-3 text-[#194D59] focus:ring-[#194D59] w-4 h-4"
                         />
                         <span className="text-gray-700 group-hover:text-[#194D59] transition-colors">
