@@ -17,13 +17,23 @@ interface CartItem {
 
 export default function BasketPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
       setCartItems(JSON.parse(savedCart));
     }
   }, []);
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <ShoppingCart className="w-8 h-8 animate-pulse text-[#194D59]" />
+      </div>
+    );
+  }
 
   const updateCart = (items: CartItem[]) => {
     setCartItems(items);
