@@ -39,8 +39,16 @@ export default function EventsPage() {
 
   return (
     <div>
-      <section className="relative bg-gradient-to-br from-[#194D59] to-[#143942] text-white py-20 md:py-28">
-        <div className="container mx-auto px-4 lg:px-8">
+      <section className="relative bg-gradient-to-br from-[#194D59] to-[#143942] text-white py-20 md:py-28 overflow-hidden">
+        <div className="absolute inset-0">
+          <img 
+            src="/pool-and-water-boat.jpg" 
+            alt="Event Styling" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/60"></div>
+        </div>
+        <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

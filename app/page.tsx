@@ -69,11 +69,13 @@ export default function Home() {
   return (
     <div>
       <section className="relative bg-gradient-to-br from-[#194D59] to-[#143942] text-white py-20 md:py-32 overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
-            backgroundSize: '40px 40px'
-          }}></div>
+        <div className="absolute inset-0">
+          <img 
+            src="/front-shop-window.jpg" 
+            alt="Anton's Decor Shop" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/60"></div>
         </div>
         
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
@@ -151,6 +153,118 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="relative py-16 md:py-24 text-white overflow-hidden">
+        <div className="absolute inset-0">
+          <img 
+            src="/pool-and-water-boat.jpg" 
+            alt="Event Styling" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/60"></div>
+        </div>
+        <div className="container mx-auto px-4 lg:px-8 text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="max-w-3xl mx-auto"
+          >
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+              Event Styling & Décor Services
+            </h2>
+            <p className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed">
+              Transform your special occasions into unforgettable experiences with our bespoke event styling. 
+              From intimate gatherings to grand celebrations, we bring elegance and sophistication to every detail.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button variant="secondary" size="lg" href="/events">
+                View Event Services
+              </Button>
+              <Button variant="outline" size="lg" href="/contact" className="bg-white/10 border-white text-white hover:bg-white hover:text-[#194D59]">
+                Request Quote
+              </Button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="py-4 md:py-6 bg-white"></section>
+
+      <section className="relative py-16 md:py-24 text-white overflow-hidden">
+        <div className="absolute inset-0">
+          <img 
+            src="/lots-of-flowers.jpg" 
+            alt="Floral Arrangements" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/60"></div>
+        </div>
+        <div className="container mx-auto px-4 lg:px-8 text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="max-w-3xl mx-auto"
+          >
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+              Floral Arrangements
+            </h2>
+            <p className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed">
+              Flowers express emotion, celebrate moments, and elevate spaces. Discover our curated collection 
+              of fresh and artificial arrangements, each crafted with artistry and care.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button variant="secondary" size="lg" href="/floral">
+                Explore Floral
+              </Button>
+              <Button variant="outline" size="lg" href="/contact" className="bg-white/10 border-white text-white hover:bg-white hover:text-[#194D59]">
+                Order Now
+              </Button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="py-4 md:py-6 bg-white"></section>
+
+      <section className="relative py-16 md:py-24 bg-gradient-to-br from-[#194D59] to-[#143942] text-white overflow-hidden">
+        <div className="absolute inset-0">
+          <img 
+            src="/inside-the-shop.jpg" 
+            alt="Inside Anton's Decor Shop" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/60"></div>
+        </div>
+        <div className="container mx-auto px-4 lg:px-8 text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="max-w-3xl mx-auto"
+          >
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+              Visit Our Paola Showroom
+            </h2>
+            <p className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed">
+              Experience our full collection in person. Our expert team is ready to help you 
+              create the perfect ambiance for your home or event.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button variant="secondary" size="lg" href="/contact">
+                Get Directions
+              </Button>
+              <Button variant="outline" size="lg" href="/contact" className="bg-white/10 border-white text-white hover:bg-white hover:text-[#194D59]">
+                Contact Us
+              </Button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4 lg:px-8">
           <SectionHeader
@@ -186,34 +300,6 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-24 bg-gradient-to-br from-[#194D59] to-[#143942] text-white">
-        <div className="container mx-auto px-4 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="max-w-3xl mx-auto"
-          >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-              Visit Our Paola Showroom
-            </h2>
-            <p className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed">
-              Experience our full collection in person. Our expert team is ready to help you 
-              create the perfect ambiance for your home or event.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="secondary" size="lg" href="/contact">
-                Get Directions
-              </Button>
-              <Button variant="outline" size="lg" href="/contact" className="bg-white/10 border-white text-white hover:bg-white hover:text-[#194D59]">
-                Contact Us
-              </Button>
-            </div>
-          </motion.div>
         </div>
       </section>
     </div>
