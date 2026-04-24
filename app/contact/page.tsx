@@ -237,12 +237,18 @@ export default function ContactPage() {
           />
           
           <Card className="overflow-hidden">
-            <div className="aspect-[21/9] bg-gradient-to-br from-[#194D59]/10 to-[#C59D5A]/10 flex items-center justify-center">
-              <div className="text-center">
-                <MapPin className="w-16 h-16 text-[#194D59] mx-auto mb-4" />
-                <p className="text-lg text-gray-600 mb-2">Interactive Map Placeholder</p>
-                <p className="text-sm text-gray-500">105 Vjal Sir Paul Boffa, Paola, Malta PLA 1510</p>
-              </div>
+            <div className="aspect-[21/9] relative">
+              <iframe
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=105+Vjal+Sir+Paul+Boffa,Paola,Malta+PLA+1510&zoom=15"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="absolute inset-0"
+                title="Anton's Décor - 105 Vjal Sir Paul Boffa, Paola, Malta"
+              />
             </div>
           </Card>
         </div>

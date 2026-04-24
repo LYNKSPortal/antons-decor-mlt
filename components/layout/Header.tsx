@@ -2,12 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Menu, X, Mail, User, ShoppingBag } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,11 +19,22 @@ export const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const updateCartCount = () => {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      const count = cart.reduce((sum: number, item: any) => sum + item.quantity, 0);
+      setCartCount(count);
+    };
+
+    updateCartCount();
+    window.addEventListener('cartUpdated', updateCartCount);
+    return () => window.removeEventListener('cartUpdated', updateCartCount);
+  }, []);
+
   const navLinks = [
     { href: '/', label: 'Home' },
     { href: '/events', label: 'Events' },
     { href: '/floral', label: 'Floral' },
-    { href: '/shop', label: 'Home Section' },
     { href: '/shop', label: 'Online Shop' },
     { href: '/contact', label: 'Contact Us' },
   ];
@@ -38,11 +51,13 @@ export const Header: React.FC = () => {
         }`}
       >
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="text-2xl md:text-3xl font-bold text-[#194D59]">
-                Anton&apos;s <span className="text-[#C59D5A]">Décor</span>
-              </div>
+          <div className="flex items-center justify-between py-6">
+            <Link href="/" className="flex items-center">
+              <img 
+                src="/AD-Dark-Version.png" 
+                alt="Anton's Décor" 
+                className="w-[200px] h-auto object-contain"
+              />
             </Link>
 
             <nav className="hidden lg:flex items-center space-x-8">
@@ -58,18 +73,20 @@ export const Header: React.FC = () => {
             </nav>
 
             <div className="flex items-center space-x-4">
-              <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+              <Link href="/contact" className="p-2 hover:bg-gray-100 rounded-full transition-colors">
                 <Mail className="w-5 h-5 text-[#194D59]" />
-              </button>
-              <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+              </Link>
+              <Link href="/account" className="p-2 hover:bg-gray-100 rounded-full transition-colors">
                 <User className="w-5 h-5 text-[#194D59]" />
-              </button>
-              <button className="p-2 hover:bg-gray-100 rounded-full transition-colors relative">
+              </Link>
+              <Link href="/basket" className="p-2 hover:bg-gray-100 rounded-full transition-colors relative">
                 <ShoppingBag className="w-5 h-5 text-[#194D59]" />
-                <span className="absolute top-0 right-0 bg-[#C59D5A] text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
-                  0
-                </span>
-              </button>
+                {cartCount > 0 && (
+                  <span className="absolute top-0 right-0 bg-[#C59D5A] text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
 
               <button
                 className="lg:hidden p-2"

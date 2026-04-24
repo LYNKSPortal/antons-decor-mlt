@@ -8,9 +8,11 @@ export const Footer: React.FC = () => {
       <div className="container mx-auto px-4 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           <div>
-            <h3 className="text-2xl font-bold mb-4">
-              Anton&apos;s <span className="text-[#C59D5A]">Décor</span>
-            </h3>
+            <img 
+              src="/AD-Light-Version.png" 
+              alt="Anton's Décor" 
+              className="w-[200px] h-auto object-contain mb-6"
+            />
             <p className="text-gray-300 mb-6 leading-relaxed">
               Malta&apos;s premier destination for elegant home décor, bespoke floral arrangements, 
               and sophisticated event styling. Transform your space with timeless beauty.
@@ -65,12 +67,12 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/shop" className="text-gray-300 hover:text-[#C59D5A] transition-colors">
+                <Link href="/basket" className="text-gray-300 hover:text-[#C59D5A] transition-colors">
                   Basket
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-gray-300 hover:text-[#C59D5A] transition-colors">
+                <Link href="/account" className="text-gray-300 hover:text-[#C59D5A] transition-colors">
                   My Account
                 </Link>
               </li>

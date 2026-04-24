@@ -22,13 +22,36 @@ interface Product {
 
 const categories = [
   'All',
+  'Armchairs, Chairs & Stools',
+  'Artificial Flowers',
+  'Artificial Plants',
+  'Candle Holders',
+  'Candles & Home Scent',
+  'Carpets',
+  'Clocks',
+  'Side Tables',
+  'Console Tables',
+  'Cushions',
+  'Dining Tables',
+  'Floor Lamps',
+  'Frames',
   'Furniture',
+  'Gift Vouchers',
+  'Glass',
+  'Lanterns',
   'Lighting',
-  'Decorative',
-  'Floral',
-  'Textiles',
-  'Ambiance',
-  'Glassware'
+  'Mirrors',
+  'Ornaments',
+  'Pictures',
+  'Plant Ornaments',
+  'Pots',
+  'Ribbons',
+  'Services',
+  'Sideboards',
+  'Table Holders',
+  'Table Lamps',
+  'Trays',
+  'Vases'
 ];
 const priceRanges = [
   { label: 'All Prices', min: 0, max: Infinity },
@@ -40,10 +63,13 @@ const priceRanges = [
 
 function ShopPageContent() {
   const searchParams = useSearchParams();
+  const categoryParam = searchParams.get('category');
+  const initialCategory = categoryParam && categories.includes(categoryParam) ? categoryParam : 'All';
+  
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [dataSource, setDataSource] = useState<'arture' | 'local' | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [selectedPriceRange, setSelectedPriceRange] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [inStockOnly, setInStockOnly] = useState(false);
@@ -51,19 +77,7 @@ function ShopPageContent() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [sortBy, setSortBy] = useState('featured');
 
-  // Initialize category from URL parameter
-  useEffect(() => {
-    const categoryParam = searchParams.get('category');
-    if (categoryParam && categories.includes(categoryParam)) {
-      setSelectedCategory(categoryParam);
-    }
-  }, [searchParams]);
-
-  useEffect(() => {
-    fetchProducts();
-  }, [selectedCategory, selectedPriceRange, searchQuery]);
-
-  const fetchProducts = async () => {
+  const fetchProducts = React.useCallback(async () => {
     setLoading(true);
     try {
       const params = new URLSearchParams();
@@ -85,6 +99,41 @@ function ShopPageContent() {
     } finally {
       setLoading(false);
     }
+  }, [selectedCategory, selectedPriceRange, searchQuery]);
+
+  // Initialize category from URL parameter
+  useEffect(() => {
+    const categoryParam = searchParams.get('category');
+    if (categoryParam && categories.includes(categoryParam)) {
+      setSelectedCategory(categoryParam);
+    } else if (!categoryParam) {
+      setSelectedCategory('All');
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+
+  const addToCart = (product: Product) => {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const existingItem = cart.find((item: any) => item.id === product.id);
+    
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push({
+        id: product.id,
+        name: product.name,
+        price: parseFloat(product.price.toString()),
+        quantity: 1,
+        imageUrl: product.imageUrl || (product.images && product.images[0])
+      });
+    }
+    
+    localStorage.setItem('cart', JSON.stringify(cart));
+    window.dispatchEvent(new Event('cartUpdated'));
+    alert(`${product.name} added to basket!`);
   };
 
   const sortedProducts = React.useMemo(() => {
@@ -216,7 +265,7 @@ function ShopPageContent() {
                     <Filter className="w-4 h-4 mr-2" />
                     Category
                   </h3>
-                  <div className="space-y-2 max-h-96 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                  <div className="space-y-2">
                     {categories.map((cat) => (
                       <label key={cat} className="flex items-center cursor-pointer group">
                         <input
@@ -394,6 +443,7 @@ function ShopPageContent() {
                                 variant="primary"
                                 size="sm"
                                 disabled={!product.inStock}
+                                onClick={() => addToCart(product)}
                                 className="flex items-center gap-2"
                               >
                                 <ShoppingCart className="w-4 h-4" />
@@ -438,6 +488,7 @@ function ShopPageContent() {
                                 <Button
                                   variant="primary"
                                   disabled={!product.inStock}
+                                  onClick={() => addToCart(product)}
                                   className="flex items-center gap-2"
                                 >
                                   <ShoppingCart className="w-4 h-4" />
